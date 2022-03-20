@@ -64,7 +64,8 @@ doNumeric = parseInt(window.prompt("Would you like to include numerical characte
       break;
   default: 
       window.alert ("Invalid input, try again!")
-      getCriteria();   
+      getCriteria();
+      return;   
  }
 
  switch (doLower) {
@@ -77,6 +78,7 @@ doNumeric = parseInt(window.prompt("Would you like to include numerical characte
   default: 
     window.alert ("Invalid input, try again!")
     getCriteria(); 
+    return;
  }
 
  switch(doSpecial) {
@@ -88,7 +90,8 @@ doNumeric = parseInt(window.prompt("Would you like to include numerical characte
     break;
   default: 
     window.alert ("Invalid input, try again!")
-    getCriteria(); 
+    getCriteria();
+    return;
  }
 
  switch (doNumeric) {
@@ -100,7 +103,8 @@ doNumeric = parseInt(window.prompt("Would you like to include numerical characte
     break;
   default: 
     window.alert ("Invalid input, try again!")
-    getCriteria();    
+    getCriteria();   
+    return; 
  }
 
 //Ensure at least one charset has been selected
