@@ -1,22 +1,15 @@
-// Assignment code here
-
-//Create List of Characters
-
-//Prompt for chritera
-//Get pass length
-//Get char type (Upper, Lower, Special, Numbers)
-//validate input
+//Global variable declarations
 var passLength = 0;
 var doUpper = "";
 var doLower = '';
 var doSpecial = '';
 var doNumeric = '';
 
-//Generate password
-//choose random characters
 
+//Set intial usable characters to an empty array
 var passChars = [];
 
+//Usable charsets
 var lowerChars = [
   'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
 ];
@@ -32,26 +25,34 @@ var specialChars = [
 var numChars = [
   '0','1','2','3','4','5','6','7','8','9'
 ]
+
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
 
 
-// Write password to the #password input
+//Function to get password criteria
+var getPasswordLength = function(){
+  passLength = parseInt(window.prompt("Please enter password length from 8-128 characters"));
+
+  if (passLength >= 8 && passLength <= 128) {
+    return passLength;
+  }
+  else {
+    window.alert("Please enter a valid password length!")
+    getPasswordLength();
+  } 
+}
+
+
 var getCriteria = function() {
 
-//User prompts for charset and pass length
-passLength = parseInt(window.prompt("Please enter password length from 8-128 characters"));
-doUpper = window.prompt("Would you like to include Uppercase characters? Enter 0 for no, 1 for yes");
-doLower = window.prompt("Would you like to include lowercase characters? Enter 0 for no, 1 for yes");
-doSpecial = window.prompt("Would you like to include special characters? Enter 0 for no, 1 for yes");
-doNumeric = window.prompt("Would you like to include numerical characters? Enter 0 for no, 1 for yes")
+//User prompts for charset
 
-
-doUpper = parseInt(doUpper);
-doLower = parseInt(doLower);
-doSpecial = parseInt(doSpecial);
-doNumeric = parseInt(doNumeric);
+doUpper = parseInt(window.prompt("Would you like to include Uppercase characters? Enter 0 for no, 1 for yes"));
+doLower = parseInt(window.prompt("Would you like to include lowercase characters? Enter 0 for no, 1 for yes"));
+doSpecial = parseInt(window.prompt("Would you like to include special characters? Enter 0 for no, 1 for yes"));
+doNumeric = parseInt(window.prompt("Would you like to include numerical characters? Enter 0 for no, 1 for yes"));
 
 //determine charset
  switch (doUpper) {
@@ -102,14 +103,13 @@ doNumeric = parseInt(doNumeric);
     getCriteria();    
  }
 
+//Ensure at least one charset has been selected
 if (!doUpper && !doLower && !doSpecial && !doNumeric) {
   window.alert("You need to select at least one character set!")
   getCriteria();
 }
 
-
-
-
+//Append chosen charsets to usable characters
 if (doUpper) {
   passChars.push.apply(passChars, upperChars);
 }
@@ -126,12 +126,18 @@ if (doNumeric) {
   passChars.push.apply(passChars, numChars);
 }
 
-console.log(passChars);
 }
 
+
+
+//Function to generate password based on criteria 
 function generatePassword() {
+
+  //calls for criteria functions
+getPasswordLength();
 getCriteria();
 
+//generate random password
 generatedPassword = "";
   for (var i = 0; i < passLength; i++) {
     var randomChar = Math.floor(Math.random()*passChars.length);
@@ -142,12 +148,12 @@ return generatedPassword;
 }
 
 
-
+//Function to write password to text box
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
   passwordText.value = password;
+  //reset usable characters
   passChars = [];
 
 }
